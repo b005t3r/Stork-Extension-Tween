@@ -13,6 +13,7 @@ import starling.events.TouchPhase;
 
 import stork.core.Node;
 import stork.event.TweenEvent;
+import stork.transition.ITweenTransition;
 import stork.transition.TweenTransitions;
 import stork.tween.JugglerNode;
 import stork.tween.TimelineNode;
@@ -26,11 +27,13 @@ public class TouchHandlerNode extends Node {
     private var _timeline:TimelineNode;
 
     private var _simultaneous:Boolean;
+    private var _transition:ITweenTransition;
 
-    public function TouchHandlerNode(simultaneous:Boolean) {
+    public function TouchHandlerNode(simultaneous:Boolean, transition:ITweenTransition) {
         super("TouchHandler");
 
-        _simultaneous = simultaneous;
+        _simultaneous   = simultaneous;
+        _transition     = transition;
     }
 
     [ObjectReference("@Root")]
@@ -65,7 +68,7 @@ public class TouchHandlerNode extends Node {
             _timeline.removeEventListener(TweenEvent.FINISHED, onFinished);
         }
 
-        _timeline = new TimelineNode(TweenTransitions.EASE_OUT);
+        _timeline = new TimelineNode(_transition);
         _timeline.addEventListener(TweenEvent.FINISHED, onFinished);
 
         var tween:TweenNode;
