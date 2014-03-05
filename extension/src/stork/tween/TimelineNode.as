@@ -199,6 +199,8 @@ public class TimelineNode extends AbstractTweenNode {
         _started = false;
 
         _sortedTimeFrames = null;
+
+        super.animationFinished();
     }
 
     override protected function calculateProgress(time:Number, trans:ITweenTransition):Number {

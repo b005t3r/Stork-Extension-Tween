@@ -63,13 +63,12 @@ public class TouchHandlerNode extends Node {
 
         var location:Point = touch.getLocation(_root);
 
-        if(_timeline != null) {
-            _timeline.removeFromParent();
-            _timeline.removeEventListener(TweenEvent.FINISHED, onFinished);
-        }
+        if(_timeline != null)
+            _timeline.reset();
 
         _timeline = new TimelineNode(_transition);
-        _timeline.addEventListener(TweenEvent.FINISHED, onFinished);
+        _timeline.repeatReversed = true;
+        _timeline.repeatCount = 2;
 
         var tween:TweenNode;
 
@@ -98,12 +97,6 @@ public class TouchHandlerNode extends Node {
         }
 
         _juggler.addNode(_timeline);
-    }
-
-    private function onFinished(event:TweenEvent):void {
-        _timeline.removeEventListener(TweenEvent.FINISHED, onFinished);
-        _timeline.removeFromParent();
-        _timeline = null;
     }
 }
 }

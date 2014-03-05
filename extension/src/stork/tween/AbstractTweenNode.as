@@ -22,6 +22,7 @@ public class AbstractTweenNode extends ContainerNode {
     protected var _repeatDelay:Number               = 0;
     protected var _repeatReversed:Boolean           = false;
     protected var _reversed:Boolean                 = false;
+    protected var _autoReset:Boolean                = true;
     protected var _currentCycle:int                 = 0;
 
     // cached events
@@ -55,7 +56,11 @@ public class AbstractTweenNode extends ContainerNode {
     protected function animationRepeated(reversed:Boolean):void {  }
 
     /** Called on last repetition, after internal members have been updated. After this method returns, all subsequent calls to 'started' have to return false. Abstract. */
-    protected function animationFinished():void {  }
+    protected function animationFinished():void {
+        // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
+        if(_autoReset && parentNode is JugglerNode)
+            reset();
+    }
 
     // implemented methods
 
@@ -141,8 +146,7 @@ public class AbstractTweenNode extends ContainerNode {
                 if(started)
                     throw new UninitializedError("property 'started' not set to 'false' in the 'animationFinished()' handler");
 
-                if(hasEventListener(TweenEvent.FINISHED))
-                    dispatchEvent(_finishedEvent.reset());
+                dispatchEvent(_finishedEvent.reset());
 
                 return;
             }
@@ -313,6 +317,9 @@ public class AbstractTweenNode extends ContainerNode {
 
     public function get reversed():Boolean { return _reversed; }
     public function set reversed(value:Boolean):void { _reversed = value; }
+
+    public function get autoReset():Boolean { return _autoReset; }
+    public function set autoReset(value:Boolean):void { _autoReset = value; }
 
     public function get roundToInt():Boolean { return _roundToInt; }
     public function set roundToInt(value:Boolean):void {

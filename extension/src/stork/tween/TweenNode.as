@@ -138,6 +138,8 @@ public class TweenNode extends AbstractTweenNode {
 
     override protected function animationFinished():void {
         _started = false;
+
+        super.animationFinished();
     }
 }
 }
