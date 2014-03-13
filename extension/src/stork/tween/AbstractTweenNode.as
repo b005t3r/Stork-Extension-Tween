@@ -55,12 +55,8 @@ public class AbstractTweenNode extends ContainerNode {
     /** Called each repetition except last, after internal members have been updated. */
     protected function animationRepeated(reversed:Boolean):void {  }
 
-    /** Called on last repetition, after internal members have been updated. After this method returns, all subsequent calls to 'started' have to return false. Abstract. */
-    protected function animationFinished():void {
-        // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
-        if(_autoReset && parentNode is JugglerNode)
-            reset();
-    }
+    /** Called on last repetition, after internal members have been updated. After this method returns, all subsequent calls to 'started' have to return false. */
+    protected function animationFinished():void { }
 
     // implemented methods
 
@@ -148,6 +144,10 @@ public class AbstractTweenNode extends ContainerNode {
 
                 dispatchEvent(_finishedEvent.reset());
 
+                // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
+                if(_autoReset && parentNode is JugglerNode)
+                    reset();
+
                 return;
             }
         }
@@ -177,6 +177,10 @@ public class AbstractTweenNode extends ContainerNode {
                     throw new UninitializedError("property 'started' not set to 'false' in the 'animationFinished()' handler");
 
                 dispatchEvent(_finishedEvent.reset());
+
+                // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
+                if(_autoReset && parentNode is JugglerNode)
+                    reset();
 
                 return;
             }
