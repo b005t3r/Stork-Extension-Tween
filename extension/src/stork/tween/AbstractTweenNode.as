@@ -144,10 +144,6 @@ public class AbstractTweenNode extends ContainerNode {
 
                 dispatchEvent(_finishedEvent.reset());
 
-                // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
-                if(_autoReset && parentNode is JugglerNode)
-                    reset();
-
                 return;
             }
         }
@@ -177,10 +173,6 @@ public class AbstractTweenNode extends ContainerNode {
                     throw new UninitializedError("property 'started' not set to 'false' in the 'animationFinished()' handler");
 
                 dispatchEvent(_finishedEvent.reset());
-
-                // reset only if added to JugglerNode, so no tween will be removed from timelines, etc.
-                if(_autoReset && parentNode is JugglerNode)
-                    reset();
 
                 return;
             }

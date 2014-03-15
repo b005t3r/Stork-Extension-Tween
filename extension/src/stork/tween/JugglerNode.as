@@ -47,6 +47,13 @@ public class JugglerNode extends ContainerNode {
 
             _compoundTransition.removeAllTransitions();
             tween.advance(scaledDt, _compoundTransition);
+
+            // TODO: this will still crash/malfunction when a tween removes itself on advance() call
+            if(tween.progress == 1 && tween.autoReset) {
+                tween.reset();  // removes from juggler
+                --i;            // adjust next index & count after removing tween
+                --count;
+            }
         }
     }
 }
