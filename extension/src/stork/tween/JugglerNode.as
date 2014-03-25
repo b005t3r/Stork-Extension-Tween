@@ -36,7 +36,7 @@ public class JugglerNode extends ContainerNode {
     protected function onStep(event:SceneStepEvent):void {
         if(_paused) return;
 
-        var scaledDt:Number = event.dt * _timeScale;
+        var scaledDt:Number = event.dt / _timeScale;
 
         var count:int = nodeCount;
         for(var i:int = 0; i < count; ++i) {
