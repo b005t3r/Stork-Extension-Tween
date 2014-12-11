@@ -15,11 +15,14 @@ public class JugglerNode extends ContainerNode {
     protected var _timeScale:Number   = 1.0;
     protected var _paused:Boolean     = false;
 
-    public function JugglerNode(name:String = "JugglerNode") {
+    private var _actionPriority:int;
+    private var _action:JugglerStepActionNode;
+
+    public function JugglerNode(actionPriority:int = int.MAX_VALUE, name:String = "JugglerNode") {
         super(name);
 
-        addEventListener(Event.ADDED_TO_SCENE, onAddedToScene);
-        addEventListener(Event.REMOVED_FROM_SCENE, onRemovedFromScene);
+        _actionPriority = actionPriority;
+        _action = new JugglerStepActionNode(this, name + "StepAction");
     }
 
     /** Ratio used to scale each time interval passed to children (may be negative). @default 1.0 */
@@ -30,13 +33,13 @@ public class JugglerNode extends ContainerNode {
     public function set paused(value:Boolean):void { _paused = value; }
     public function get paused():Boolean { return _paused; }
 
-    protected function onAddedToScene(event:Event):void { sceneNode.addEventListener(SceneStepEvent.STEP, onStep); }
-    protected function onRemovedFromScene(event:Event):void { sceneNode.removeEventListener(SceneStepEvent.STEP, onStep); }
+    public function get actionPriority():int { return _actionPriority; }
+    public function get action():JugglerStepActionNode { return _action; }
 
-    protected function onStep(event:SceneStepEvent):void {
+    public function step(dt:Number):void {
         if(_paused) return;
 
-        var scaledDt:Number = event.dt / _timeScale;
+        var scaledDt:Number = dt / _timeScale;
 
         var count:int = nodeCount;
         for(var i:int = 0; i < count; ++i) {
@@ -49,6 +52,7 @@ public class JugglerNode extends ContainerNode {
             tween.advance(scaledDt, _compoundTransition);
 
             // TODO: this will still crash/malfunction when a tween removes itself on advance() call
+            // a bug with looped infinite tweens - when they reach progress 1 they are automatically removed
             if(tween.progress == 1 && tween.autoReset) {
                 tween.reset();  // removes from juggler
                 --i;            // adjust next index & count after removing tween
