@@ -207,8 +207,8 @@ public class AbstractTweenNode extends ContainerNode {
         _currentCycle   = 0;
         _transition     = transition != null ? transition : TweenTransitions.LINEAR;
 
-        removeEventListeners();
         removeFromParent();
+        removeEventListeners();
     }
 
     public function seek(totalTime:Number, suppressEvents:Boolean = true, parentTransition:CompoundTransition = null):Number {
