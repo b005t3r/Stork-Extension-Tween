@@ -23,7 +23,7 @@ public class TimeFrameNode extends ContainerNode {
     protected var _invalidatedEvent:TimeFrameEvent  = new TimeFrameEvent(TimeFrameEvent.INVALIDATED);
     protected var _durationDirty:Boolean            = true;
 
-    public function TimeFrameNode(startTime:Number = 0, name:String = "TimeFrameNode") {
+    public function TimeFrameNode(startTime:Number = 0, name:String = "TimeFrame") {
         super(name);
 
         _startTime = startTime;

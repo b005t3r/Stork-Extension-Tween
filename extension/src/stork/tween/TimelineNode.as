@@ -21,7 +21,7 @@ public class TimelineNode extends AbstractTweenNode {
 
     protected var _durationDirty:Boolean                    = true;
 
-    public function TimelineNode(transition:ITweenTransition = null, name:String = "TimelineNode") {
+    public function TimelineNode(transition:ITweenTransition = null, name:String = "Timeline") {
         super(0, transition, name);
 
         addEventListener(Event.ADDED_TO_PARENT, onChildAdded);

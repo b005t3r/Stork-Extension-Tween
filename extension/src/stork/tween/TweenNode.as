@@ -17,7 +17,7 @@ public class TweenNode extends AbstractTweenNode {
     protected var _startValues:Vector.<Number>  = new Vector.<Number>();
     protected var _endValues:Vector.<Number>    = new Vector.<Number>();
 
-    public function TweenNode(target:Object = null, duration:Number = 1, transition:ITweenTransition = null, name:String = "TweenNode") {
+    public function TweenNode(target:Object = null, duration:Number = 1, transition:ITweenTransition = null, name:String = "Tween") {
         super(duration, transition, name);
 
         this.target = target;

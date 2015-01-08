@@ -33,7 +33,7 @@ public class AbstractTweenNode extends ContainerNode {
 
     protected var _invalidatedEvent:TweenEvent      = new TweenEvent(TweenEvent.INVALIDATED);
 
-    public function AbstractTweenNode(duration:Number = 1, transition:ITweenTransition = null, name:String   = "AbstractTweenNode") {
+    public function AbstractTweenNode(duration:Number = 1, transition:ITweenTransition = null, name:String   = "AbstractTween") {
         super(name);
 
         reset(duration, transition);

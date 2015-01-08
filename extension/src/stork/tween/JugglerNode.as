@@ -16,13 +16,13 @@ public class JugglerNode extends ContainerNode {
     protected var _paused:Boolean     = false;
 
     private var _actionPriority:int;
-    private var _action:JugglerStepActionNode;
+    private var _stepAction:JugglerStepActionNode;
 
-    public function JugglerNode(actionPriority:int = int.MAX_VALUE, name:String = "JugglerNode") {
+    public function JugglerNode(actionPriority:int = int.MAX_VALUE, name:String = "Juggler") {
         super(name);
 
         _actionPriority = actionPriority;
-        _action = new JugglerStepActionNode(this, name + "StepAction");
+        _stepAction = new JugglerStepActionNode(this, name + "StepAction");
     }
 
     /** Ratio used to scale each time interval passed to children (may be negative). @default 1.0 */
@@ -34,7 +34,7 @@ public class JugglerNode extends ContainerNode {
     public function get paused():Boolean { return _paused; }
 
     public function get actionPriority():int { return _actionPriority; }
-    public function get action():JugglerStepActionNode { return _action; }
+    public function get stepAction():JugglerStepActionNode { return _stepAction; }
 
     public function step(dt:Number):void {
         if(_paused) return;
