@@ -5,8 +5,6 @@
  */
 package stork.tween {
 import stork.core.ContainerNode;
-import stork.event.Event;
-import stork.event.SceneStepEvent;
 import stork.transition.CompoundTransition;
 
 public class JugglerNode extends ContainerNode {
